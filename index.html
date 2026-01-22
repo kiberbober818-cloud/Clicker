@@ -1,0 +1,99 @@
+<!DOCTYPE html><html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Бесконечный кликер</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #1e1e2f, #2b2b45);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .game {
+      background: rgba(0,0,0,0.4);
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      width: 300px;
+    }
+    h1 {
+      margin-top: 0;
+      font-size: 26px;
+    }
+    .score {
+      font-size: 22px;
+      margin: 20px 0;
+    }
+    button {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      background: radial-gradient(circle at top, #4caf50, #2e7d32);
+      color: #fff;
+      transition: transform 0.1s, box-shadow 0.1s;
+      box-shadow: 0 10px 0 #1b5e20;
+    }
+    button:active {
+      transform: translateY(8px);
+      box-shadow: 0 2px 0 #1b5e20;
+    }
+    .shop {
+      margin-top: 20px;
+    }
+    .upgrade {
+      background: #444;
+      border-radius: 10px;
+      padding: 10px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+    .upgrade:hover {
+      background: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="game">
+    <h1>Бесконечный кликер</h1>
+    <div class="score">Очки: <span id="score">0</span></div>
+    <button id="clickBtn">КЛИК</button><div class="shop">
+  <h3>Магазин</h3>
+  <div class="upgrade" id="upgrade">+1 за клик (цена: <span id="price">10</span>)</div>
+</div>
+
+  </div>  <script>
+    let score = 0;
+    let perClick = 1;
+    let price = 10;
+
+    const scoreEl = document.getElementById('score');
+    const btn = document.getElementById('clickBtn');
+    const upgrade = document.getElementById('upgrade');
+    const priceEl = document.getElementById('price');
+
+    btn.addEventListener('click', () => {
+      score += perClick;
+      scoreEl.textContent = score;
+    });
+
+    upgrade.addEventListener('click', () => {
+      if (score >= price) {
+        score -= price;
+        perClick++;
+        price = Math.floor(price * 1.7);
+        scoreEl.textContent = score;
+        priceEl.textContent = price;
+        upgrade.innerHTML = `+1 за клик (цена: <span id="price">${price}</span>)`;
+      }
+    });
+  </script></body>
+</html>
